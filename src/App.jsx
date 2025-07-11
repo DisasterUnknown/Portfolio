@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './css/App.css'
 import ParticleBackground from './components/particalBg'
 import hashPassword from './components/hashing'
@@ -8,6 +8,14 @@ function App() {
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
   const [shake, setShake] = useState(false)
+  const buzz = useRef(null)
+
+  useEffect(() => {
+    // Preload audio on load
+    buzz.current = new Audio('./accessDenied.mp3')
+    buzz.current.volume = 0.9
+    buzz.current.load()
+  }, [])
 
   const correctPass = 'b51ae642874f7663f6d8ab867dbea47307b6490f02a2fc4f2401844f9354a7d7'
   const _w3b8551 = [
@@ -32,9 +40,7 @@ function App() {
       setShake(true) // trigger shake
 
       // Play sound
-      const buzz = new Audio('./accessDenied.mp3')
-      buzz.volume = 0.9
-      buzz.play()
+      if (buzz.current) buzz.current.play().catch(e => console.log("Audio error:", e))
 
       // Remove shake class after animation ends
       setTimeout(() => {
