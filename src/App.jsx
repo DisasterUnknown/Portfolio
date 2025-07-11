@@ -52,12 +52,12 @@ function App() {
               placeholder="••••••••"
             />
             <button type="button" className='ml-1 border border-white/30' onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? "🙈" : "👁️"}
+              {showPassword ? " 🙈 " : " 👁️ "}
             </button>
           </div>
           <button
             onClick={handleSubmit}
-            className="mt-6 w-full py-3 bg-neonGreen hover:bg-green-500 rounded-md font-semibold drop-shadow-md transition"
+            className="mt-6 w-full py-3 bg-neonGreen hover:bg-green-500 rounded-md border border-2 border-white font-semibold drop-shadow-md transition"
           >
             Submit
           </button>
