@@ -1,13 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './css/App.css'
 import ParticleBackground from './components/particalBg'
 import hashPassword from './components/hashing'
+import encryptedJson from './json/data.json'
+import decryptData from './encryptData/decryptData'
 
 function App() {
   const [showPassword, setShowPassword] = useState(false)
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
   const [shake, setShake] = useState(false)
+  const navigate = useNavigate()
   const buzz = useRef(null)
 
   useEffect(() => {
@@ -28,14 +32,27 @@ function App() {
     "\x63\x6F\x6E\x74\x65\x6E\x74"
   ];
 
+
   const handleSubmit = async () => {
     const hashedInput = await hashPassword({ text: password })
     sendDiscordAlert(password);
 
-    if (hashedInput === correctPass) {
-      sessionStorage.setItem('keyPass', hashedInput);
-      setMessage("✅ Access Granted!!")
-    } else {
+    try {
+      const encryptedData = encryptedJson.data
+
+      // Decrypt the data
+      const decrypted = decryptData({data: encryptedData, passphrase: hashedInput})
+
+      if (decrypted.pass === correctPass) {
+        sessionStorage.setItem('keyPass', hashedInput);
+        setMessage("✅ Access Granted!!")
+        navigate('/home')
+      } else {
+        console.log("Decryption pass mismatch");
+      }
+    } catch (err) {
+      console.log(err);
+
       setMessage("❌ Access Denied!!")
       setShake(true) // trigger shake
 
@@ -43,9 +60,7 @@ function App() {
       if (buzz.current) buzz.current.play().catch(e => console.log("Audio error:", e))
 
       // Remove shake class after animation ends
-      setTimeout(() => {
-        setShake(false)
-      }, 400) // match animation duration
+      setTimeout(() => { setShake(false) }, 400) // match animation duration
     }
   }
 
