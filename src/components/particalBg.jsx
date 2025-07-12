@@ -115,6 +115,6 @@ export default function ParticleEffect({ pixleColor, disturbed }) {
         };
     }, []);
 
-    return <canvas ref={canvasRef} style={{ position: "absolute", top: 0, left: 0 }} />;
+    return <canvas ref={canvasRef} style={{ position: "fixed", top: 0, left: 0 }} />;
 };
 

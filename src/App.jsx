@@ -68,7 +68,7 @@ function App() {
       <ParticleBackground pixleColor={shake ? 'red' : 'white'} disturbed={shake} />
 
       {/* Centered login card */}
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20">
+      <div className="fixed inset-1 flex items-center justify-center bg-black bg-opacity-20">
         <div className={`glass p-8 w-[320px] rounded-xl border border-white/20 shadow-lg text-white bg-black bg-opacity-60 transition-transform ${shake ? 'shake' : ''}`}>
           <h1 className="text-3xl font-bold mb-6 text-neonGreen drop-shadow-lg">Login</h1>
           <label className="block mb-2 text-lg" htmlFor="password">Enter Password:</label>
