@@ -1,43 +1,17 @@
 import { useEffect, useRef, useState } from "react"
-import { FaLinkedin, FaGithub, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
 import decryptData from '../encryptData/decryptData'
 import encryptedJson from '../json/data.json'
 import ParticleBackground from '../components/waterBobleBg'
+import TopNav from '../components/topNav'
+import SizeBox from '../components/sizeBox'
+import ProjectBox from '../components/projectBox'
 
 export default function Home() {
     const [isValidUser, setIsValidUser] = useState(false)
-    const bubble = useRef(null)
-    const navigate = useNavigate()
-    const [isMuted, setIsMuted] = useState(true)
 
     useEffect(() => {
-        bubble.current = new Audio('./waterBubbles.mp3')
-        bubble.current.volume = 0.9
-        bubble.current.loop = true
-        bubble.current.load()
         onLoadSecurityCheck()
-
-        return () => {
-            if (bubble.current) {
-                bubble.current.pause();
-                bubble.current = null;
-            }
-        }
     }, []);
-
-    const toggleMute = () => {
-        if (!bubble.current) return;
-
-        if (isMuted) {
-            bubble.current.play();
-            setIsMuted(false);
-        } else {
-            bubble.current.pause();
-            setIsMuted(true);
-        }
-
-    }
 
     function onLoadSecurityCheck() {
         try {
@@ -59,35 +33,125 @@ export default function Home() {
             {isValidUser ? (
                 <div>
                     <ParticleBackground />
-                    <div className="text-white">
-                        {/* Top navigation */}
-                        <div className="flex justify-between items-center px-4 py-2 md:px-8 md:py-4 bg-black/30 backdrop-blur-md text-white font-semibold tracking-wide md:rounded-lg md:pt-10">
-                            {/* Right side */}
-                            <div className="flex gap-8">
-                                <p className="text-xl md:text-2xl font-bold text-blue-400 cursor-pointer hover:text-purple-300 transition" onClick={() => { navigate('/home') }}>Priyashantha</p>
-                                <p className="hover:text-purple-300 transition cursor-pointer pt-1 hidden md:block">Languages</p>
-                                <p className="hover:text-purple-300 transition cursor-pointer pt-1 hidden md:block">Projects</p>
-                                <p className="hover:text-purple-300 transition cursor-pointer pt-1 hidden md:block">Contact</p>
-                            </div>
+                    <TopNav />
 
-                            {/* Left side */}
-                            <div className="flex gap-6 text-2xl">
-                                <a href="https://www.linkedin.com/in/priyashantha-fernando-b325122b7/" target="_blank" rel="noopener noreferrer" className="hover:text-purple-300 pt-2 transition">
-                                    <FaLinkedin />
-                                </a>
-                                <a href="https://github.com/DisasterUnknown" target="_blank" rel="noopener noreferrer" className="hover:text-purple-300 pt-2 transition">
-                                    <FaGithub />
-                                </a>
-                                <a onClick={toggleMute} className="p-2 rounded-full bg-black/30 backdrop-blur-md hover:bg-purple-500/20 transition" title={isMuted ? "Unmute Sound" : "Mute Sound"}>
-                                    {isMuted ? (
-                                        <FaVolumeMute />
-                                    ) : (
-                                        <FaVolumeUp />
-                                    )}
-                                </a>
-                            </div>
+                    <div className="pt-[72px] flex">
+                        {/* Left Side */}
+                        <div className="text-left xl:pt-10 flex-1 no-scrollbar px-6 py-4 space-y-6">
+                            <SizeBox />
+                            <p className="text-[#ff1576] text-xl font-bold font-mono mb-0">Best Deploys and Builds</p>
+
+                            <ProjectBox
+                                title="Personal Portfolio Featuring Hobbies"
+                                description="This interactive web profile blends personal interests,
+                                    gaming passions, and multimedia links in a sleek, engaging interface. Built with modern web
+                                    technologies and hosted on GitHub Pages, it showcases how to create a personalized, functional
+                                    online presence with intuitive navigation and vibrant styling. 🚀"
+                            />
+                            <ProjectBox
+                                title="CC-Travolute"
+                                description="A client-side application for the Travolute platform, providing an intuitive interface for exploring trips, making bookings, and managing travel experiences. Likely built with modern web or mobile frameworks to ensure a seamless, responsive user journey. 🌍"
+                            />
+
+                            <ProjectBox
+                                title="CC-Traveloute-Server"
+                                description="The backend API powering the Travolute ecosystem. Handles user authentication, booking logic, data storage, and communication between the client app and the database, ensuring secure and efficient travel management. ⚙️"
+                            />
+
+                            <ProjectBox
+                                title="Traveloute-APK"
+                                description="The packaged Android build of the Travolute mobile application, enabling users to access the platform on their devices with native-like performance and offline capabilities. 📱"
+                            />
+
+                            <ProjectBox
+                                title="BlueArt-Laravel"
+                                description="A Laravel-based art and e-commerce platform, designed to showcase and sell creative works online. Combines robust PHP backend functionality with elegant Blade templates for a visually appealing shopping experience. 🎨"
+                            />
+
+                            <ProjectBox
+                                title="Portfolio"
+                                description="A personal portfolio website highlighting skills, projects, and achievements. Built to demonstrate strong design principles, responsive layouts, and professional branding for career growth. 💼"
+                            />
+
+                            <ProjectBox
+                                title="Grocies.github.io"
+                                description="A GitHub Pages web app for managing groceries and shopping lists. Offers simple yet functional list management with interactive features for everyday convenience. 🛒"
+                            />
+
+                            <ProjectBox
+                                title="Flutter-BlueArt"
+                                description="A Flutter mobile application bringing the BlueArt platform to Android and iOS devices, offering a consistent experience across web and mobile environments with a shared design language. 📲"
+                            />
+
+                            <ProjectBox
+                                title="Pi-Accuracy-Clock.github.io"
+                                description="A web interface showcasing an ultra-precise clock implementation, possibly leveraging Raspberry Pi for accuracy tests, data display, and time synchronization experiments. ⏱️"
+                            />
+
+                            <ProjectBox
+                                title="Tree-to-JSON-Parser"
+                                description="A utility tool for converting hierarchical tree-structured data into JSON format, enabling developers to streamline data processing, storage, and transmission. 🌳"
+                            />
+
+                            <ProjectBox
+                                title="SHA-256_Explained"
+                                description="An educational repository breaking down the SHA-256 hashing algorithm with clear explanations and code demonstrations, bridging cryptography theory with practical programming. 🔐"
+                            />
+
+                            <ProjectBox
+                                title="Web-Profile.github.io"
+                                description="An interactive personal web profile hosted on GitHub Pages, integrating multimedia, hobbies, and dynamic elements for a vibrant online identity. 🌐"
+                            />
+
+                            <ProjectBox
+                                title="Wolf-Mania.github.io"
+                                description="A browser-based game themed around wolves, likely featuring engaging gameplay and pixel art, delivered entirely via GitHub Pages for easy access. 🐺"
+                            />
+
+                            <ProjectBox
+                                title="Godot-2D-Game"
+                                description="A 2D game project built in Godot, showcasing original gameplay mechanics, art, and scripting using GDScript within the powerful open-source engine. 🎮"
+                            />
+
+                            <ProjectBox
+                                title="Ant-Colony-GoDot"
+                                description="A Godot simulation/game based on ant colony behavior, using AI and pathfinding to replicate natural swarm intelligence and emergent gameplay. 🐜"
+                            />
+
+                            <ProjectBox
+                                title="Event-Management-System"
+                                description="A complete platform for planning and managing events, including scheduling, attendee registration, and administrative tools, possibly built with a PHP or JS backend. 📅"
+                            />
+
+                            <ProjectBox
+                                title="Python-Game"
+                                description="A standalone Python game, potentially using Pygame for graphics and interactivity, demonstrating programming fundamentals and creative game design. 🐍"
+                            />
+
                         </div>
 
+                        {/* Right Side */}
+                        <div className="w-[35%] hidden md:block sticky top-[72px] max-h-[calc(100vh-72px)] no-scrollbar bg-[#18181c] px-6 py-4 overflow-y-auto">
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                            <p>Hello</p>
+                        </div>
                     </div>
                 </div>
             ) : (
